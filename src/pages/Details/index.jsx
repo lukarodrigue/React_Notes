@@ -1,15 +1,28 @@
-import { Container } from "./styles.js"
+import { Container, Links } from "./styles.js"
+
+import { Header } from "../../components/Header/index.jsx"
 import { Button } from "../../components/Button/index.jsx"
+import { Section } from "../../components/Section/index.jsx"
+
 
 
 export function Details() {
   return (
     <Container>
-      <h1>Hello World!</h1>
-      <h2>Qualquer Coisa</h2>
-      <h3>Qualquer Coisa</h3>
-      <Button title="Entrar" loading ></Button>
-      <Button title="Cadastrar" ></Button>
+      <Header> </Header>
+      
+      <Section title="Links úteis">
+          <Links> 
+            <li>
+              <a href="#">https://www.rocketseat.com.br/</a>
+            </li>
+            <li>
+              <a href="#">https://www.rocketseat.com.br/</a>
+            </li>
+          </Links> 
+      </Section>
+      
+      
       <Button title="Voltar" ></Button>
 
     </Container>
