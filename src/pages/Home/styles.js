@@ -37,13 +37,27 @@ export const Brand  = styled.div`
 `;
 export const Menu  = styled.ul`
     grid-area: menu;
+    background-color: ${({ theme }) => theme.COLORS.BACKGROUND_900};
+
+    padding-top: 64px;
+    text-align: center;
 `;
 export const Search  = styled.div`
     grid-area: search;
+    padding: 64px 64px 0;
 `;
 export const Content  = styled.div`
     grid-area: content;
 `;
 export const NewNote = styled.button`
     grid-area: newnote;
+    
+    background-color: ${({ theme }) => theme.COLORS.ORANGE};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg{
+        margin-right: 8px;
+    }
 `;
