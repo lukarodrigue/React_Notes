@@ -32,17 +32,19 @@ export function Home() {
             </Search>
 
             <Content>
-        <Section title="Minhas notas">
-          <Note data={{
-            title: 'React',
-            tags: [
-              { id: '1', name: 'react' },
-              { id: '2', name: 'rocketseat' }
-            ]
-          }}
-          />
-        </Section>
-      </Content>
+              
+              <Section title="Minhas notas">
+                <Note data={{
+                  title: 'React',
+                  tags:[
+                    {id:'1', name:'React'},
+                    {id:'2', name:'ReactNotes'}
+                    ]
+                    }} 
+                    />
+              
+              </Section>
+            </Content>
 
             <NewNote>
             <FiPlus />
