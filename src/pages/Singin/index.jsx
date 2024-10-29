@@ -1,8 +1,12 @@
+import { FiLock, FiMail } from 'react-icons/fi'
+
+import { Link } from 'react-router-dom'
+
 import { Container, Form, Background } from "./styles";
 
-import { Input } from '../../components/Input'
-import { FiLock, FiMail } from 'react-icons/fi'
 import { Button } from '../../components/Button'
+import { Input } from '../../components/Input'
+
 
 export function SingIn(){
     return (
@@ -24,8 +28,10 @@ export function SingIn(){
                     icon={FiLock}
                 /> 
                 <Button title="Entrar"/>
-                    
-                <a href="#">Criar Conta</a>
+
+                <Link to="/register">
+                    Criar Conta
+                </Link>    
 
 
              

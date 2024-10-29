@@ -1,5 +1,7 @@
 import { Container, Form, Background } from "./styles";
 
+import { Link } from 'react-router-dom'
+
 import { Input } from '../../components/Input'
 import { FiLock, FiMail, FiUser } from 'react-icons/fi'
 import { Button } from '../../components/Button'
@@ -32,7 +34,7 @@ export function SingUp(){
                 /> 
                 <Button title="Cadastras"/>
                     
-                <a href="#">Voltar para o login</a>
+                <Link to="/">Voltar para o login</Link>
 
 
              
