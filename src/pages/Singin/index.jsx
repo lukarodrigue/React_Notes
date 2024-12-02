@@ -1,6 +1,8 @@
 import { FiLock, FiMail } from 'react-icons/fi'
-
+import {  useState } from 'react';
 import { Link } from 'react-router-dom'
+
+import { useAuth } from '../../hooks/auth'
 
 import { Container, Form, Background } from "./styles";
 
@@ -9,6 +11,18 @@ import { Input } from '../../components/Input'
 
 
 export function SingIn(){
+    const [email, setEmail] = useState(""); 
+    const [password, setPassword] = useState("");
+
+
+
+    const { singIn } = useAuth();
+
+    function handleSignIn(){
+        singIn({email, password})
+    }
+
+
     return (
         <Container>
             <Form>
@@ -21,13 +35,15 @@ export function SingIn(){
                     placeholder ="Email"
                     type = "text"
                     icon={FiMail}
+                    onChange={event => setEmail(event.target.value)}
                 /> 
                  <Input 
-                    placeholder ="Email"
-                    type = "text"
+                    placeholder ="Senha"
+                    type = "password"
                     icon={FiLock}
+                    onChange={event => setPassword(event.target.value)}
                 /> 
-                <Button title="Entrar"/>
+                <Button title="Entrar" onClick={handleSignIn} />
 
                 <Link to="/register">
                     Criar Conta
