@@ -5,7 +5,6 @@ import { api } from '../services/api';
 export const AuthContext = createContext({});
 
 function AuthProvider({ children }) {
-
     const [data, setData] = useState({})
 
     async function singIn({ email, password }) {
@@ -13,7 +12,7 @@ function AuthProvider({ children }) {
             const response = await api.post("/sessions", { email, password });
             const { user, token } = response.data;
 
-            api.defaults.headers.authorization = `Bearer ${token}`;
+            api.defaults.headers.common['authorization'] = `Bearer ${token}`;
             setData({ user, token })
 
             localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
@@ -28,12 +27,19 @@ function AuthProvider({ children }) {
 
     }
 
+    function singOut(){
+        localStorage.removeItem("@rocketnotes:token");
+        localStorage.removeItem("@rocketnotes:user");
+
+        setData({});
+    }
+
     useEffect(() => {
         const token = localStorage.getItem("@rocketnotes:token");
         const user = localStorage.getItem("@rocketnotes:user");
 
         if(token && user) {
-            api.defaults.headers.authorization = `Bearer ${token}`;
+            api.defaults.headers.common['authorization'] = `Bearer ${token}`;
 
             setData({
                 token,
@@ -43,7 +49,7 @@ function AuthProvider({ children }) {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ singIn, user: data.user }}>
+        <AuthContext.Provider value={{ singIn, user: data.user, singOut }}>
             {children}
         </AuthContext.Provider>
     )
