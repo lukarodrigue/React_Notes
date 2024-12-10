@@ -4,6 +4,9 @@ import { FiArrowLeft, FiUser, FiMail, FiLock, FiCamera } from "react-icons/fi";
 
 import { useAuth } from '../../hooks/auth'
 
+
+import { avatarPlaceholder } from '../../assets/avatar_placeholder.svg'
+
 import { Link } from 'react-router-dom'
 
 import { Input } from "../../components/Input"
@@ -18,7 +21,8 @@ export function Profile() {
     const [passwordOld, setPasswordOld] = useState();
     const [passwordNew, setPasswordNew] = useState();
 
-    const [avatar, setAvatar] = useState(null);
+    const [avatar, setAvatar] = useState(user.avatar);
+    const [avatarFile, setAvatarFile] = useState(null);
 
     async function handleUpdate() {
         const user = {
@@ -27,11 +31,16 @@ export function Profile() {
             password: passwordNew,
             old_password: passwordOld,
         }
-        await updateProfile({ user });  
+        await updateProfile({ user, avatarFile });  
     }
 
     async function handleChangeAvatar(event) {
-        const file = event.target.files[0]
+        const file = event.target.files[0];
+        setAvatarFile(file);
+
+        const   imagePreview = URL.createObjectURL(file);
+        setAvatar(imagePreview);
+
     }
 
     return (

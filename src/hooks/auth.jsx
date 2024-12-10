@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 import { api } from '../services/api';
+import { json } from "react-router-dom";
 
 export const AuthContext = createContext({});
 
@@ -12,12 +13,12 @@ function AuthProvider({ children }) {
             const response = await api.post("/sessions", { email, password });
             const { token, user } = response.data;
 
-            
+
             localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
             localStorage.setItem("@rocketnotes:token", token)
-        
+
             api.defaults.headers.common['authorization'] = `Bearer ${token}`;
-            
+
             setData({ user, token });
 
 
@@ -38,19 +39,22 @@ function AuthProvider({ children }) {
         setData({});
     }
 
-    async function updateProfile({ user }) {
+    async function updateProfile({ user, avatarFile }) {
         try {
-            // Remove a senha do objeto "user"
-            const { password, ...userData } = user;
+            if (avatarFile) {
+                const fileUpdateForm = new FormData();
+                fileUpdateForm.append("avatar", avatarFile);
 
-            await api.put("/users", userData);
+                const response = await api.patch("/users/avatar", fileUpdateForm);
+                user.avatar = response.data.avatar;
+            }
 
-            // Armazena o objeto "userData" sem a senha no localStorage
-            localStorage.setItem("@rocketnotes:user", JSON.stringify(userData));
+            await api.put("/users", user);
+            localStorage.setItem("@rocketnotes:user", JSON.stringify(user));
 
-            setData({ user: userData, token: data.token });
+            setData({ user, token: data.token });
+            alert("Perfil atualizado!");
 
-            alert("Perfil atualizado");
         } catch (error) {
             if (error.response) {
                 alert(error.response.data.message);
@@ -58,7 +62,7 @@ function AuthProvider({ children }) {
                 alert("Não foi possível atualizar o perfil.")
             }
         }
-    }
+    };
 
 
     useEffect(() => {
