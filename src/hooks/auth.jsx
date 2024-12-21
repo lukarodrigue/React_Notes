@@ -1,7 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 
 import { api } from '../services/api';
-import { json } from "react-router-dom";
 
 export const AuthContext = createContext({});
 
@@ -39,14 +38,15 @@ function AuthProvider({ children }) {
         setData({});
     }
 
-    async function updateProfile({ user, avatarFile }) {
+    async function updateProfile({ user, avatarFile, }) {
         try {
             if (avatarFile) {
                 const fileUpdateForm = new FormData();
-                fileUpdateForm.append("avatar", avatarFile);
+                fileUpdateForm.append('avatar', avatarFile);
 
                 const response = await api.patch("/users/avatar", fileUpdateForm);
                 user.avatar = response.data.avatar;
+                console.log(response)
             }
 
             await api.put("/users", user);
@@ -80,7 +80,7 @@ function AuthProvider({ children }) {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ singIn, user: data.user, singOut, updateProfile }}>
+        <AuthContext.Provider value={{ singIn, user: data.user, singOut, updateProfile, }}>
             {children}
         </AuthContext.Provider>
     )
