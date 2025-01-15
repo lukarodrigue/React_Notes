@@ -6,20 +6,34 @@ import { useAuth } from "../../hooks/auth";
 
 import { api } from "../../services/api";
 
+<<<<<<< HEAD
 import { Input } from "../../components/Input";
 import { Button } from '../../components/Button';
+=======
+>>>>>>> 3987cb209ac9d381a2759f351c978a6edf1897e9
 
 import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
 
 import { Container, Form, Avatar } from "./styles";
 
 export function Profile() {
+<<<<<<< HEAD
   const { user, updatedProfile } = useAuth();
 
   const [name, setName] = useState(user.name);
   const [email, setEmail] = useState(user.email);
   const [passwordOld, setPasswordOld] = useState("");
   const [passwordNew, setPasswordNew] = useState("");
+=======
+    
+    const { user, updateProfile } = useAuth();
+
+    const [name, setName] = useState(user.name);
+    const [email, setEmail] = useState(user.email);
+    
+    const [passwordOld, setPasswordOld] = useState();
+    const [passwordNew, setPasswordNew] = useState();
+>>>>>>> 3987cb209ac9d381a2759f351c978a6edf1897e9
 
   const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
 
@@ -34,7 +48,12 @@ export function Profile() {
       old_password: passwordOld
     };
 
+<<<<<<< HEAD
     const userUpdated = Object.assign(user, updated);
+=======
+        const imagePreview = URL.createObjectURL(file)
+        setAvatar(imagePreview);
+>>>>>>> 3987cb209ac9d381a2759f351c978a6edf1897e9
 
     await updatedProfile({ user: userUpdated, avatarFile });
   }
