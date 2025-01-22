@@ -1,31 +1,34 @@
-import { Profiler } from "react";
-import { Container, Profile, Logout } from "./styles.js";
-import { RiShutDownLine } from "react-icons/ri";
-import { useAuth } from '../../hooks/auth.jsx'
+import { RiShutDownLine } from 'react-icons/ri';
+import { useAuth } from '../../hooks/auth';
+
+import { api } from "../../services/api";
+
+import avatarPlaceholder from "../../assets/avatar_placeholder.svg";
+
+import { Container, Profile, Logout } from "./styles";
 
 export function Header() {
-    const { singOut } = useAuth();
+  const { signOut, user } = useAuth();
 
-    return (
-        <Container>
+  const avatarUrl = user.avatar ? `${api.defaults.baseURL}/files/${user.avatar}` : avatarPlaceholder;
 
-            <Profile to="/profile">
-                <img src="https://github.com/lukarodrigue.png"
-                    alt="Foto do usuário"
-                />
+  return (
+    <Container>
+      <Profile to="/profile">
+        <img
+          src={avatarUrl}
+          alt={user.name}
+        />
 
-                <div>
-                    <span> Bem vindo </span>
-                    <strong>Luka Rodrigues Gonçalves</strong>
-                </div>
-            </Profile>
+        <div>
+          <span>Bem-vindo</span>
+          <strong>{user.name}</strong>
+        </div>
+      </Profile>
 
-            <Logout onClick={singOut}>
-                <RiShutDownLine>
-
-                </RiShutDownLine>
-            </Logout>
-
-        </Container>
-    )
+      <Logout onClick={signOut}>
+        <RiShutDownLine />
+      </Logout>
+    </Container>
+  );
 }

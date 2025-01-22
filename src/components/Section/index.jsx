@@ -1,10 +1,10 @@
-import { Container } from "./styled"
+import { Container } from "./styles";
 
 export function Section({ title, children }) {
-    return (
-        <Container>
-            <h2> {title} </h2>
-            {children}
-        </Container>
-    );
+  return (
+    <Container>
+      <h2>{title}</h2>
+      {children}
+    </Container>
+  );
 }
